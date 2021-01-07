@@ -1,0 +1,9 @@
+CommandLine
+-----------
+Connect-AzAccount
+New-AzResourceGroup -ResourceGroupName "sample" -Location "east us" -tag @{'resources'='loadbalancers'}
+Get-AzResourceGroup -ResourceGroupName sample
+
+New-AzResourceGroupDeployment -Name test -ResourceGroupName sample -TemplateParameterFile "D:\azchlg\loadbalancer\azuredeploy.parameters.json" -TemplateFile "D:\azchlg\loadbalancer\azuredeploy.json"
+
+New-AzResourceGroupDeployment -Name test -ResourceGroupName sample -TemplateUri 'https://raw.githubusercontent.com/kamalanathan1995/azchlg/master/loadbalancer/azuredeploy.json' -TemplateParameterUri 'https://raw.githubusercontent.com/kamalanathan1995/azchlg/master/loadbalancer/azuredeploy.parameters.json'
