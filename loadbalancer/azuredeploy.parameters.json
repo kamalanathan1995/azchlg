@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "projectName": {
-      "value": "K"
+      "value": "test"
     },
     "adminUsername": {
-      "value": "kamal"
+      "value": "test"
     },
     "adminPassword": {
-      "value": "kamalanathan@1234"
+      "value": "testloadb@1234"
     },
     "location": {
       "value": "eastus2"
