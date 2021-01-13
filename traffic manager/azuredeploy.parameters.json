@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "east us"
+    },
+    "uniqueDnsName": {
+      "value": "newdns"
+    },
+    "uniqueDnsNameForPublicIP": {
+      "value": "new-pub1"
+    },
+    "adminUsername": {
+      "value": "test12"
+    },
+	"adminPasswordOrKey": {
+	        
+			"value": "newtraffic@12"
+    },
+  }
+}
