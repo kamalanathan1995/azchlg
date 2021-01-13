@@ -1,0 +1,36 @@
+Create a resource group by using name , location and tags through PowerShell or azure portal
+
+PowerShell commands:
+Account-connect:
+Connect-AzAccount
+Resource group creation:
+New-AzResourceGroup -ResourceGroupName "sampleaks" -Location "east us" -tag @{'resources'='aksclustures'}
+Get-AzResourceGroup -ResourceGroupName sampleaks
+ 
+
+Deploy arm template with locally stored json files:
+
+New-AzResourceGroupDeployment -Name test -TemplateParameterFile "D:\azchlg\aks\azuredeploy.parameters.json" -TemplateFile "D:\azchlg\aks\azuredeploy.json" -Debug -ResourceGroupName sampleaks
+
+Deploy arm template using uri:
+New-AzResourceGroupDeployment -Name test -TemplateUri "https://raw.githubusercontent.com/kamalanathan1995/azchlg/master/aks/azuredeploy.json" -TemplateParameterUri "https://raw.githubusercontent.com/kamalanathan1995/azchlg/master/aks/azuredeploy.parameters.json"-ResourceGroupName sampleaks
+
+ 
+
+To get Node Pool details:
+Get-AzAksNodePool -Name agentpool -ResourceGroupName sampleaks -ClusterName test
+
+To get Cluster details:
+Get-AzAksCluster -ResourceGroupName sampleaks -Name test
+ 
+Configure
+Set-AzAksCluster -ResourceGroupName sampleaks -NodeMinCount 1 -NodeMaxCount 3  -NodePoolMode System -Name test  -NodeCount 3 -NodeName agentpool
+
+To create a new agent Pool:
+New-AzAksNodePool -ResourceGroupName sampleaks -ClusterName test -Name agentpool1 -Count 0 -OsDiskSize 100 -MaxPodCount 100 -VmSize Standard_DS2_v2 -OsType Linux
+
+
+Auto Scaling:
+Set-AzAksCluster -ResourceGroupName sampleaks -Name test  -NodeCount 2 -NodeName agentpool -NodeMinCount 1 -NodeMaxCount 10 -EnableNodeAutoScaling
+
+ 
