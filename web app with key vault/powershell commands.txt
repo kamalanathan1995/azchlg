@@ -1,0 +1,60 @@
+
+PowerShell commands:
+Account-connect:
+Connect-AzAccount
+Resource group creation:
+New-AzResourceGroup -Name webappkey -Location eastus -tag @{'resources'='web app and key vault'}
+Get-AzResourceGroup -ResourceGroupName webappkey
+ 
+Keyvault:
+To create a key vault use below command.
+New-AzKeyVault -Name keyvault2021test -ResourceGroupName webappkey -Location eastus -EnabledForDeployment  -EnabledForTemplateDeployment -Tag @{'resource'='key vault'}
+ 
+ Get-AzADServicePrincipal -DisplayNameBeginsWith "Microsoft Azure App"
+
+ 
+
+We can provide access policy using the object id for any app , user and groups
+
+ Get-AzADServicePrincipal -DisplayNameBeginsWith "Microsoft Azure App"
+
+ServicePrincipalNames : {abfa0a7c-a6b6-4736-8310-5855508787cd, https://appservice.azure.com}
+ApplicationId         : abfa0a7c-a6b6-4736-8310-5855508787cd
+ObjectType            : ServicePrincipal
+DisplayName           : Microsoft Azure App Service
+Id                    : 0084e8c6-d065-42ca-970f-d56aae881600
+Type                  :
+
+
+ Set-AzKeyVaultAccessPolicy -VaultName  keyvault2021test -ObjectId 0084e8c6-d065-42ca-970f-d56aae881600 -PermissionsToSecrets all -PermissionsToKeys all -PermissionsToCertificates all
+
+Add certificate :
+Below forbidden issue occurs because of access policy issue. So the user have access to create cert under keyvault. After added access policy we are able to create certs and keys
+
+$Policy = New-AzKeyVaultCertificatePolicy -SecretContentType "application/x-pkcs12" -SubjectName "CN=trailcert.com" -IssuerName "Self" -ValidityInMonths 6 -ReuseKeyOnRenewal
+ Add-AzKeyVaultCertificate -VaultName keyvault2021test  -Name "keyvault" -CertificatePolicy $Policy
+
+Get-AzKeyVaultCertificateOperation -VaultName keyvault2021test  -Name "keyvault"
+ 
+Get-AzKeyVaultCertificate -VaultName keyvault2021test  -Name "keyvault"
+ 
+Create a web app via Arm template:
+
+ webapp -ResourceGroupName webappkey -TemplateFile "D:\azchlg\web app with key vault\prereqs\prereq.azuredeploy.json" -TemplateParameterFile "D:\azchlg\web app with key vault\prereqs\prereq.azuredeploy.parameters.json"
+
+ 
+To create custom domain via powershell use below commands.
+Note: For free account we cannot able to create custom domains
+
+Set-AzAppServicePlan -Name $webappname -ResourceGroupName $webappname `
+-Tier Shared
+
+# Add a custom domain name to the web app. 
+$fqdn="<Replace with your custom domain name>"
+Set-AzWebApp -Name $webappname -ResourceGroupName $webappname `
+-HostNames @($fqdn,"$webappname.azurewebsites.net")
+
+After updated all the parameter values in json file. We can able to link the key vault and webapp
+Deploy arm template with locally stored json files:
+New-AzResourceGroupDeployment -Name webapp1 -ResourceGroupName webappkey -TemplateFile  "D:\azchlg\web app with key vault\azuredeploy.json"  -TemplateParameterFile "D:\azchlg\web app with key vault\azuredeploy.parameters.json"
+

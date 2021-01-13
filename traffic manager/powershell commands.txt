@@ -1,0 +1,15 @@
+Create a resource group by using name , location and tags through PowerShell or azure portal
+
+PowerShell commands:
+Account-connect:
+Connect-AzAccount
+Resource group creation:
+New-AzResourceGroup -ResourceGroupName "sampletraffic" -Location "east us" -tag @{'resources'='traffic manager'}
+Get-AzResourceGroup -ResourceGroupName sampletraffic
+
+ 
+
+
+Deploy arm template with locally stored json files:
+New-AzResourceGroupDeployment -Name test -ResourceGroupName sampletraffic -TemplateParameterFile "D:\azchlg\traffic manager\azuredeploy.parameters.json" -TemplateFile "D:\azchlg\traffic manager\azuredeploy.json"
+ 

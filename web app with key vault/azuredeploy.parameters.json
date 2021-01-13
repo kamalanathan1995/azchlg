@@ -1,0 +1,24 @@
+{
+   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+   "contentVersion": "1.0.0.0",
+   "parameters": {
+      "existingServerFarmId": {
+         "value": "/subscriptions/a1b26c1c-47ae-4ca8-9c8e-c2dfddfd6a1b/resourceGroups/webapp/providers/Microsoft.Web/serverfarms/AppServicePlan-webcec7ditetyqtg"
+      },
+      "existingWebAppName": {
+         "value": "webcec7ditetyqtg"
+      },
+      "certificateName": {
+         "value": "keyvaulttrail1995"
+      },
+      "existingKeyVaultId": {
+         "value": "/subscriptions/a1b26c1c-47ae-4ca8-9c8e-c2dfddfd6a1b/resourceGroups/webapp/providers/Microsoft.KeyVault/vaults/keyvaulttrail1995"
+      },
+      "existingKeyVaultSecretName": {
+         "value": "keyvault"
+      },
+      "hostname": {
+         "value": "keyvault"
+      }
+   }
+}

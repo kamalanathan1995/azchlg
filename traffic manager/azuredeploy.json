@@ -163,7 +163,7 @@
             "properties": {
               "protocol": "*",
               "sourcePortRange": "*",
-              "destinationPortRange": "*",
+              "destinationPortRange": "80",
               "sourceAddressPrefix": "*",
               "destinationAddressPrefix": "*",
               "access": "Allow",
